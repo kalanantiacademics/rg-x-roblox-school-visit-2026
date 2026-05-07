@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RUANGGURU X ROBLOX</title>
+  <link rel="icon" href="https://cdn-web-2.ruangguru.com/landing-pages/assets/e7d93748-818d-462d-be57-7db1e479cd62.png" type="image/png">
+  <style>
+    :root {
+      --bg: #00040a;
+      --navy: #001f3f;
+      --blue: #007bff;
+      --blue-bright: #0095ff;
+      --cyan: #00f2ff;
+      --ink: #001f3f;
+      --white: #ffffff;
+      --gray-light: #f8f9fa;
+      --shadow: 0 20px 50px rgba(0, 123, 255, 0.15);
+      --radius: 32px;
+      --good: #e7f3ff;
+      --bad: #fff1ec;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #d7e1df;
+      font-family: Arial, "Trebuchet MS", sans-serif;
+      color: var(--ink);
+      overflow: hidden;
+      height: 100%;
+    }
+
+    body {
+      background: linear-gradient(135deg, #00040a 0%, #001f3f 100%);
+      position: relative;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      bottom: -100px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: url('roblox_coding_bg.png') no-repeat center;
+      background-size: contain;
+      opacity: 0.2;
+      filter: blur(40px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 34px 44px 140px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 20px;
+      opacity: 0;
+      transform: translateX(60px) scale(.98);
+      pointer-events: none;
+      transition: all .45s ease;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .logo-pill,
+    .code-pill,
+    .tag {
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      background: white;
+      border: 1px solid rgba(0, 123, 255, 0.2);
+    }
+
+    .logo-pill {
+      display: flex;
+      align-items: center;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
+    .logo-pill img {
+      height: 60px;
+      display: block;
+      border-radius: 16px;
+    }
+
+    .gif-container {
+      width: 100%;
+      height: 350px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      border: 2px dashed rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .gif-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .step-img-container {
+      width: 100%;
+      height: 300px;
+      background: #f0f0f0;
+      margin-top: 15px;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slide-3-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .obstacle-card {
+      padding: 24px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .sub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .media-box {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #f8f9fa;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .media-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .code-pill {
+      background: var(--blue);
+      color: white;
+      border: none;
+    }
+
+    .tag {
+      background: rgba(0, 242, 255, 0.1);
+      color: var(--blue-bright);
+      border-color: rgba(0, 242, 255, 0.3);
+      font-size: 14px
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.98);
+      border: 1px solid rgba(0, 123, 255, 0.1);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 28px;
+      align-items: center;
+      height: 100%
+    }
+
+    .hero-panel {
+      padding: 28px 34px
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: var(--blue-bright);
+      color: white;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0
+    }
+
+    h1 {
+      font-size: 80px;
+      line-height: 1;
+      font-weight: 900;
+      color: var(--white);
+      text-shadow: 0 5px 15px rgba(0, 149, 255, 0.4);
+      margin-bottom: 15px;
+    }
+
+    .hero-sub {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .lead {
+      font-size: 20px;
+      line-height: 1.6;
+      max-width: 760px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .big-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 24px
+    }
+
+    .stat {
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+    }
+
+    .stat b {
+      display: block;
+      font-size: 24px;
+      color: var(--cyan);
+      margin-bottom: 4px
+    }
+
+    .stat span {
+      font-size: 15px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.7)
+    }
+
+    .visual {
+      position: relative;
+      min-height: 520px;
+      padding: 34px 38px;
+      background: linear-gradient(160deg, rgba(0, 31, 63, 0.8), rgba(0, 4, 10, 0.9));
+      overflow: hidden;
+      border: 1px solid rgba(0, 242, 255, 0.2);
+    }
+
+    .visual-layout {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      align-items: center;
+      gap: 28px;
+      height: 100%;
+    }
+
+    .visual-copy {
+      max-width: 460px;
+    }
+
+    .visual-kicker {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 6px;
+      background: var(--blue-bright);
+      color: white;
+      font-weight: 900;
+      font-size: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .visual-title {
+      font-size: 42px;
+      line-height: 1.1;
+      color: var(--white);
+      margin: 0 0 16px;
+    }
+
+    .visual-desc {
+      font-size: 18px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 24px;
+    }
+
+    .visual-preview {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .preview-label {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .9);
+      color: var(--blue);
+      font-weight: 900;
+      font-size: 15px;
+      box-shadow: var(--shadow);
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%
+    }
+
+    .b1 {
+      width: 140px;
+      height: 140px;
+      background: rgba(169, 238, 242, .65);
+      right: -12px;
+      top: -8px;
+    }
+
+    .b2 {
+      width: 40px;
+      height: 40px;
+      background: rgba(244, 203, 180, .55);
+      left: 18px;
+      top: 90px;
+    }
+
+    .b3 {
+      width: 22px;
+      height: 22px;
+      background: rgba(255, 201, 77, .55);
+      right: 82px;
+      top: 120px;
+    }
+
+    .b4 {
+      display: none;
+    }
+
+    .obby-stage {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      height: 310px;
+      border-radius: 30px;
+      overflow: hidden;
+      border: 3px solid rgba(79, 150, 119, .18);
+      box-shadow: var(--shadow);
+      background: linear-gradient(160deg, #7a21ba, #45156f);
+    }
+
+    .ceiling {
+      position: absolute;
+      left: 76px;
+      top: 0;
+      width: 210px;
+      height: 86px;
+      background: #8ecae6;
+      clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%)
+    }
+
+    .floor {
+      position: absolute;
+      left: 40px;
+      right: 40px;
+      bottom: 0;
+      height: 130px;
+      background: linear-gradient(90deg, #ff3a4b, #781f2f);
+      clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%)
+    }
+
+    .left-wall,
+    .right-wall {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 110px
+    }
+
+    .left-wall {
+      left: 0;
+      background: linear-gradient(180deg, #9a26d8, #5f138c)
+    }
+
+    .right-wall {
+      right: 0;
+      background: linear-gradient(180deg, #4f177f, #39105e)
+    }
+
+    .gate {
+      position: absolute;
+      left: 102px;
+      top: 78px;
+      width: 156px;
+      height: 96px;
+      background: linear-gradient(180deg, #c9d8ed 0 34%, #8ab4d2 34% 100%);
+      transform: perspective(500px) rotateX(8deg)
+    }
+
+    .gate:before {
+      content: "Apa Ibukota Indonesia?";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 12px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 800;
+      color: #183d35
+    }
+
+    .gate .ans-left,
+    .gate .ans-right {
+      position: absolute;
+      bottom: 22px;
+      font-size: 18px;
+      font-weight: 900;
+      color: #183d35;
+      text-align: center;
+    }
+
+    .gate .ans-left {
+      left: 10px;
+      width: 60px;
+      text-align: center;
+    }
+
+    .gate .ans-right {
+      right: 10px;
+      width: 70px;
+      text-align: center;
+    }
+
+    .platform-green,
+    .platform-yellow,
+    .platform-blue {
+      position: absolute;
+      bottom: 0;
+      height: 56px
+    }
+
+    .platform-green {
+      left: 230px;
+      width: 130px;
+      background: #6d9d12
+    }
+
+    .platform-yellow {
+      left: 0;
+      width: 110px;
+      background: #f3ea22
+    }
+
+    .platform-blue {
+      left: 110px;
+      width: 120px;
+      background: #3659a8
+    }
+
+    .player {
+      position: absolute;
+      left: 145px;
+      bottom: 42px;
+      width: 50px;
+      height: 72px
+    }
+
+    .player .head {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #d73e4e;
+      margin: 0 auto;
+      box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .15)
+    }
+
+    .player .body {
+      width: 36px;
+      height: 30px;
+      border-radius: 14px 14px 10px 10px;
+      background: #ececec;
+      margin: 0 auto;
+      margin-top: -2px;
+      border: 2px solid #b2c0cf
+    }
+
+    .mini-tags {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      width: 100%;
+    }
+
+    .mini-tags .box {
+      padding: 16px 18px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--blue);
+      border: 2px solid rgba(79, 150, 119, .10);
+    }
+
+    .mini-tags .box.small {
+      background: rgba(0, 123, 255, 0.1);
+      color: var(--blue-bright);
+    }
+
+    .content {
+      display: grid;
+      gap: 20px;
+      height: 100%
+    }
+
+    .title-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px
+    }
+
+    .title-wrap h2 {
+      font-size: 46px;
+      color: var(--blue);
+      letter-spacing: -1px
+    }
+
+    .title-wrap p {
+      font-size: 20px;
+      max-width: 690px;
+      line-height: 1.45
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px
+    }
+
+    .panel {
+      padding: 24px
+    }
+
+    .panel h3 {
+      font-size: 26px;
+      color: var(--blue-bright);
+      margin-bottom: 14px
+    }
+
+    .panel p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px
+    }
+
+    .pill-list span {
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(0, 123, 255, 0.08);
+      font-weight: 700;
+      color: var(--blue);
+      border: 1px solid rgba(0, 123, 255, 0.15)
+    }
+
+    .step-card {
+      padding: 24px;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid rgba(0, 123, 255, 0.1);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden
+    }
+
+    .step-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -10px -10px auto;
+      width: 82px;
+      height: 82px;
+      border-radius: 24px;
+      background: rgba(0, 242, 255, 0.1);
+      transform: rotate(16deg)
+    }
+
+    .step-no {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--blue);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 14px
+    }
+
+    .step-card h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: var(--blue-bright)
+    }
+
+    .step-card p {
+      font-size: 18px;
+      line-height: 1.45
+    }
+
+    .code-box {
+      margin-top: 14px;
+      padding: 16px 20px;
+      background: #001f3f;
+      color: #e0f0ff;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 242, 255, 0.3);
+      font-family: "Cascadia Code", "Consolas", monospace;
+      font-size: 15px;
+      line-height: 1.6;
+      white-space: pre-line;
+      text-align: left;
+      word-break: break-word;
+    }
+
+    .tree-box {
+      margin-top: 10px;
+      padding: 16px;
+      background: #f7fbf9;
+      border-radius: 18px;
+      border: 2px dashed rgba(79, 150, 119, .18);
+      font-family: "Courier New", monospace;
+      font-size: 17px;
+      line-height: 1.45;
+      white-space: pre-wrap
+    }
+
+    .tech-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 242, 255, 0.2);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .tech-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--cyan);
+      box-shadow: 0 15px 40px rgba(0, 242, 255, 0.1);
+    }
+
+    .tech-card h3 {
+      color: var(--cyan) !important;
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .tech-card p {
+      color: rgba(255, 255, 255, 0.85) !important;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .tech-card .pill-list span {
+      background: rgba(0, 242, 255, 0.1);
+      color: var(--cyan);
+      border-color: rgba(0, 242, 255, 0.2);
+    }
+
+    .step-img-container.tech-style {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Checklist Styling */
+    .checklist {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 242, 255, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .check-item:hover {
+      background: rgba(0, 242, 255, 0.05);
+      border-color: rgba(0, 242, 255, 0.3);
+      transform: translateX(10px);
+    }
+
+    .check-box {
+      width: 28px;
+      height: 28px;
+      border: 2px solid rgba(0, 242, 255, 0.4);
+      border-radius: 8px;
+      flex-shrink: 0;
+      position: relative;
+      background: rgba(0, 0, 0, 0.2);
+      margin-top: 2px;
+    }
+
+    .check-item.done {
+      border-color: var(--cyan);
+      background: rgba(0, 242, 255, 0.08);
+    }
+
+    .check-item.done .check-box::after {
+      content: "✓";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--cyan);
+      font-weight: bold;
+      font-size: 18px;
+      text-shadow: 0 0 10px var(--cyan);
+    }
+
+    .check-item b {
+      display: block;
+      color: var(--cyan);
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .check-item span {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .code-title {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: var(--blue-bright);
+      font-weight: 800;
+      font-size: 13px;
+      margin-bottom: 10px;
+      color: white;
+      text-transform: uppercase;
+    }
+
+    .interactive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 8px
+    }
+
+    .choice,
+    .sort-btn {
+      padding: 20px;
+      border-radius: 24px;
+      background: #fff;
+      border: 3px solid rgba(79, 150, 119, .16);
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      font-size: 20px;
+      font-weight: 800;
+      text-align: left;
+      color: var(--blue)
+    }
+
+    .choice:hover,
+    .sort-btn:hover {
+      transform: translateY(-4px);
+      border-color: rgba(79, 150, 119, .5)
+    }
+
+    .choice.correct {
+      background: var(--good);
+      border-color: var(--blue-bright)
+    }
+
+    .choice.wrong {
+      background: #fff3ef;
+      border-color: #ea8e65
+    }
+
+    .feedback,
+    .sort-feedback {
+      min-height: 54px;
+      margin-top: 14px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      font-size: 20px;
+      font-weight: 800;
+      background: #fff;
+      border: 2px dashed rgba(79, 150, 119, .18)
+    }
+
+    .sort-zone {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 20px;
+      background: var(--gray-light)
+    }
+
+    .sort-chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #fff;
+      border: 2px solid rgba(79, 150, 119, .16);
+      font-weight: 800
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 8px
+    }
+
+    .check-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 18px;
+      background: rgba(79, 150, 119, .12);
+      border-radius: 22px;
+      border: 2px solid rgba(79, 150, 119, .12);
+      box-shadow: var(--shadow);
+      cursor: pointer
+    }
+
+    .check-box {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 2px solid var(--blue);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #fff;
+      flex: 0 0 30px
+    }
+
+    .check-item.done .check-box {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    /* Hanya targetkan Judul (b yang pertama) */
+    .check-item div>b:first-child {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 19px;
+      color: var(--blue);
+    }
+
+    /* Biarkan b di dalam span tetap inline dan ukurannya mengikuti span */
+    .check-item span b {
+      display: inline;
+      font-size: inherit;
+      color: var(--blue-bright);
+    }
+
+    .check-item span {
+      font-size: 17px;
+      line-height: 1.4
+    }
+
+    .footer-nav {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      z-index: 5
+    }
+
+    .dots {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      transition: all .2s ease
+    }
+
+    .dot.active {
+      width: 30px;
+      background: var(--blue-bright)
+    }
+
+    .nav-controls {
+      display: flex;
+      gap: 12px
+    }
+
+    .nav-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-size: 18px;
+      font-weight: 900;
+      cursor: pointer;
+      background: #fff;
+      color: var(--blue);
+      box-shadow: var(--shadow);
+      border: 2px solid rgba(79, 150, 119, .14)
+    }
+
+    .nav-btn.primary {
+      background: var(--blue-bright);
+      color: #fff
+    }
+
+    .kbd {
+      padding: 5px 9px;
+      border-radius: 10px;
+      background: #fff;
+      border: 2px solid rgba(79, 150, 119, .14);
+      font-weight: 900
+    }
+
+    .small {
+      font-size: 16px;
+      opacity: .9
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+      height: 100%
+    }
+
+    .mini-stage {
+      padding: 22px;
+      background: linear-gradient(180deg, #d7eee3, #b8dccd);
+      min-height: 300px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .wall-l,
+    .wall-r {
+      position: absolute;
+      bottom: 26px;
+      width: 120px;
+      height: 170px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 4px solid #dbe6ec;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      font-weight: 900;
+      box-shadow: var(--shadow)
+    }
+
+    .wall-l {
+      left: 28px
+    }
+
+    .wall-r {
+      right: 28px
+    }
+
+    .question-board {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 18px;
+      width: 72%;
+      padding: 20px;
+      background: #fff;
+      border-radius: 20px;
+      border: 2px solid rgba(79, 150, 119, .14);
+      box-shadow: var(--shadow);
+      font-weight: 900;
+      font-size: 28px;
+      text-align: center;
+      color: var(--blue)
+    }
+
+    .path {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 20px;
+      height: 28px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ffd84f, #91c11b, #4f9677)
+    }
+
+    .avatar {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 44px;
+      width: 56px;
+      height: 88px
+    }
+
+    .avatar .head {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #dd5161;
+      margin: 0 auto
+    }
+
+    .avatar .body {
+      width: 40px;
+      height: 36px;
+      background: #e9eef4;
+      border-radius: 16px 16px 10px 10px;
+      margin: 0 auto;
+      margin-top: -2px
+    }
+
+    .quote {
+      padding: 22px 24px;
+      background: var(--blue-bright);
+      border-radius: 28px;
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.35;
+      color: var(--blue)
+    }
+
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 14px
+    }
+
+    .compare .col {
+      padding: 18px;
+      border-radius: 22px;
+      background: #fff;
+      border: 2px solid rgba(79, 150, 119, .12)
+    }
+
+    .compare .col.good {
+      background: var(--good)
+    }
+
+    .compare .col.bad {
+      background: var(--bad)
+    }
+
+    .compare h4 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      color: var(--blue)
+    }
+
+    .compare ul {
+      margin: 0;
+      padding-left: 22px;
+      font-size: 18px;
+      line-height: 1.5
+    }
+
+    .promo-container {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .promo-image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .promo-details {
+      flex: 1.2;
+    }
+
+    .next-step-badge {
+      margin-top: 20px;
+      padding: 15px;
+      background: var(--blue-bright);
+      border-radius: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    @media (max-width: 1100px) {
+
+      .hero,
+      .showcase,
+      .grid-2,
+      .grid-3,
+      .interactive-grid,
+      .checklist,
+      .compare {
+        grid-template-columns: 1fr
+      }
+
+      h1 {
+        font-size: 58px
+      }
+
+      .slide {
+        padding: 24px 24px 94px
+      }
+
+      .title-wrap h2 {
+        font-size: 36px
+      }
+
+      /* --- CSS KHUSUS SLIDE PROMO (ROBLOX) --- */
+    .promo-container {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr; /* Gambar sedikit lebih kecil dari teks */
+      gap: 36px;
+      align-items: center;
+      height: 100%;
+    }
+
+    .promo-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .promo-image img {
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .promo-details {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .promo-details h2 {
+      font-size: 42px;
+      color: var(--blue);
+      line-height: 1.1;
+      margin-bottom: 4px;
+      letter-spacing: -1px;
+    }
+
+    .promo-details > p {
+      font-size: 20px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .benefits-box {
+      background: #fff;
+      border: 3px solid rgba(79,150,119,.16);
+      border-radius: 20px;
+      padding: 22px 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .benefits-box h4 {
+      font-size: 22px;
+      color: var(--blue);
+      margin: 0 0 14px 0;
+    }
+
+    .benefits-box ul {
+      list-style: none; /* Menghilangkan bullet bawaan karena kamu pakai emoji */
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .benefits-box li {
+      font-size: 18px;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .next-step-badge {
+      background: var(--blue-bright);
+      border-bottom: 4px solid var(--blue);
+      padding: 16px 20px;
+      border-radius: 16px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: white;
+      margin-top: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: popIn .4s cubic-bezier(.17,.89,.32,1.5);
+    }
+
+    .next-step-badge p {
+      margin: 0;
+    }
+
+    /* Responsivitas agar aman di layar kecil */
+    @media (max-width: 1100px) {
+      .promo-container {
+        grid-template-columns: 1fr; /* Berubah jadi atas-bawah di layar kecil */
+        gap: 20px;
+      }
+      .promo-image img {
+        max-height: 280px !important; 
+      }
+      .promo-details h2 {
+        font-size: 34px;
+      }
+    }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="deck">
+
+    <section class="slide active">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo-pill">
+            <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/1784702e-19b5-4172-acfd-b44089d996ed.png" alt="Ruangguru Roblox Logo">
+          </div>
+        </div>
+      </div>
+
+      <div class="hero">
+        <div class="hero-panel">
+          <div class="eyebrow">INTERACTIVE SLIDE • SCHOOL VISIT 2026</div>
+
+          <h1>Quiz Obby Game</h1>
+          <div class="hero-sub">Roblox Studio Masterclass</div>
+
+          <p class="lead">
+            Selamat datang di modul pengembangan game profesional. Karakter harus melewati rintangan obby terlebih dahulu sebelum menghadapi tantangan pertanyaan matematika dasar (penjumlahan, pengurangan, perkalian, pembagian). Karakter harus memilih jawaban yang tepat di jalur kiri atau kanan. Jika benar, karakter dapat melanjutkan perjalanan, namun jika salah, karakter akan reset dan kembali ke titik awal.
+          </p>
+
+          <div class="big-stat-grid">
+            <div class="stat">
+              <b>Level</b>
+              <span>Beginner Explorer (Roblox Studio)</span>
+            </div>
+
+            <div class="stat">
+              <b>Misi</b>
+              <span>Membangun "Quiz Obby Game" yang seru!</span>
+            </div>
+
+            <div class="stat">
+              <b>Fokus</b>
+              <span>Part Logic, SurfaceGui, & Scripting</span>
+            </div>
+
+            <div class="stat">
+              <b>Alur</b>
+              <span>Build, Code, & Test!</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="visual card" style="padding: 0; display: flex; flex-direction: column; overflow: hidden; min-height: 520px; background: radial-gradient(circle at center, #001f3f 0%, #00040a 100%); border: 2px solid rgba(0, 242, 255, 0.3); box-shadow: inset 0 0 100px rgba(0, 242, 255, 0.1);">
+          <div class="bubble b1" style="filter: blur(60px); opacity: 0.4; background: var(--blue-bright);"></div>
+          <div class="bubble b2" style="filter: blur(40px); opacity: 0.3; background: var(--cyan);"></div>
+          <div class="bubble b3" style="filter: blur(30px); opacity: 0.5; background: var(--blue);"></div>
+          
+          <div class="preview-label" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">Gameplay Preview</div>
+          
+          <iframe id="js_video_iframe" src="https://jumpshare.com/embed/ysSiNrHTzLBgAdFO2VIK" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); width: 92%; height: 82%; border: none; z-index: 5; border-radius: 24px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 242, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.1);"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo-pill">
+            <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/1784702e-19b5-4172-acfd-b44089d996ed.png" alt="Ruangguru Roblox Logo">
+          </div>
+        </div>
+        <div class="code-pill">Slide 2</div>
+      </div>
+      <div class="content">
+        <div class="title-wrap">
+            <div class="hero-sub">Tahapan Pengembangan Proyek</div>
+        </div>
+        <div class="grid-3">
+          <div class="panel tech-card">
+            <h3>1. Konstruksi Objek</h3>
+            <p>Sebagai Kreator, Anda akan menyusun berbagai Part untuk membangun rintangan dan mempelajari pengorganisasian objek di dalam Explorer agar struktur proyek tetap rapi.</p>
+            <div class="pill-list"><span>Part</span><span>Anchor</span><span>PartColor</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/5e648cd3-31bf-42ee-9c5a-69298272fc85.png" alt="Konstruksi Objek">
+            </div>
+          </div>
+          <div class="panel tech-card">
+            <h3>2. Visualisasi Pertanyaan</h3>
+            <p>Kreator akan mengintegrasikan SurfaceGui dan TextLabel pada objek agar rintangan dapat menampilkan pertanyaan matematis bagi karakter. Menambahkan dua pilihan jawaban dengan pengaturan yang disesuaikan</p>
+            <div class="pill-list"><span>SurfaceGui</span><span>TextLabel</span><span>Design</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/de443982-a6d5-4b1d-a817-d49b6cd54ea9.png" alt="Visualisasi Pertanyaan">
+            </div>
+          </div>
+          <div class="panel tech-card">
+            <h3>3. Implementasi Logika</h3>
+            <p>Kreator akan menerapkan logika pemrograman untuk menentukan alur permainan. Jawaban yang benar memungkinkan karakter melintas, sementara kesalahan akan memicu reset posisi.</p>
+            <div class="pill-list"><span>Scripting</span><span>CanCollide</span><span>Touched</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/20e6bcab-8220-4420-affb-d051416badfa.png" alt="Implementasi Logika">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo-pill">
+            <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/1784702e-19b5-4172-acfd-b44089d996ed.png" alt="Ruangguru Roblox Logo">
+          </div>
+        </div>
+        <div class="code-pill">Slide 3</div>
+      </div>
+      <div class="content">
+        <div class="title-wrap">
+          <div class="hero-sub">Persiapan Awal: Inisialisasi Proyek</div>
+        </div>
+        <div class="grid-3">
+          <div class="panel tech-card">
+            <h3>1. Akses Roblox Studio</h3>
+            <p>Luncurkan aplikasi Roblox Studio dan pastikan Anda telah masuk dengan akun Kreator. Tahap ini adalah langkah pertama untuk memasuki lingkungan pengembangan game.</p>
+            <div class="pill-list"><span>Launch</span><span>Login</span><span>Studio</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://cdn.prod.website-files.com/63fda77e5fd49598bbf00892/6445198037f424e3d8b816d8_Studio-Banner.jpg" alt="Roblox Studio Login">
+            </div>
+          </div>
+          <div class="panel tech-card">
+            <h3>2. Pembuatan Baseplate</h3>
+            <p>Pilih template 'Baseplate' untuk memulai proyek dari kanvas kosong. Ini memberikan kebebasan bagi Kreator untuk membangun struktur dunia dari nol.</p>
+            <div class="pill-list"><span>New Project</span><span>Baseplate</span><span>Canvas</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://d1ng1bucl7w66k.cloudfront.net/ghost-blog/2025/03/Screenshot-2025-03-18-at-8.58.23-PM.png" alt="New Baseplate">
+            </div>
+          </div>
+          <div class="panel tech-card">
+            <h3>3. Konfigurasi Spawn</h3>
+            <p>Tambahkan 'SpawnLocation' melalui tab Model. Titik ini sangat penting sebagai lokasi kemunculan pertama bagi Karakter saat permainan dimulai.</p>
+            <div class="pill-list"><span>SpawnLocation</span><span>Model Tab</span><span>Start Point</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://prod.docsiteassets.roblox.com/assets/tutorials/gameplay-scripting/Spawn-Respawn/Neutral.jpg" alt="SpawnLocation Setup">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo-pill">
+            <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/1784702e-19b5-4172-acfd-b44089d996ed.png" alt="Ruangguru Roblox Logo">
+          </div>
+        </div>
+        <div class="code-pill">Slide 4</div>
+      </div>
+      <div class="content">
+        <div class="title-wrap">
+          <div class="hero-sub">Rintangan Pertama: Konstruksi Dasar</div>
+        </div>
+        <div class="grid-2">
+          <div class="panel tech-card">
+            <h3>1. Memasukkan Objek Part</h3>
+            <p>Gunakan menu 'Part' untuk memunculkan blok dasar. Kreator dapat memilih bentuk kubus, bola, atau silinder sebagai fondasi rintangan fisik bagi Karakter.</p>
+            <div class="pill-list"><span>Insert Part</span><span>Home Tab</span><span>Object</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/d4e8bae7-85f0-44f3-ac04-c2934def7c2e.png" alt="Insert Part">
+            </div>
+          </div>
+          <div class="panel tech-card">
+            <h3>2. Pengaturan Posisi & Visual</h3>
+            <p>Atur letak rintangan menggunakan alat Transformasi. Ubah warna dan material melalui tab Properties untuk menciptakan kontras visual yang menarik.</p>
+            <div class="pill-list"><span>Move & Scale</span><span>Color Property</span><span>Anchor</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/47ab5e0a-6e7b-4d56-a0ac-e36df5191a62.png" alt="Arranging Parts">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo-pill">
+            <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/1784702e-19b5-4172-acfd-b44089d996ed.png" alt="Ruangguru Roblox Logo">
+          </div>
+        </div>
+        <div class="code-pill">Slide 5</div>
+      </div>
+      <div class="content">
+        <div class="title-wrap">
+          <div class="hero-sub">Rintangan Kedua: Area Berbahaya (Lava)</div>
+        </div>
+        <div class="grid-2">
+          <div class="panel tech-card">
+            <h3>1. Membuat Objek Lava</h3>
+            <p>Ciptakan Part baru dan berikan nama 'Lava'. Gunakan warna neon cerah untuk memperingatkan Karakter bahwa area ini berbahaya dan harus dihindari.</p>
+            <div class="pill-list"><span>Rename: Lava</span><span>Neon Material</span><span>Visual Warning</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/0ce427f8-a3c7-40f9-a8fa-d9f5c6740c1e.png" alt="Lava Block Setup">
+            </div>
+          </div>
+          <div class="panel tech-card">
+            <h3>2. Penulisan Logika Script</h3>
+            <p>Tambahkan Script untuk mendeteksi sentuhan Karakter. Kreator akan menuliskan fungsi yang mengatur kesehatan Karakter menjadi nol saat bersentuhan dengan lava.</p>
+            <div class="pill-list"><span>Touched Event</span><span>Humanoid Logic</span><span>Reset Character</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/50a2febf-7231-4cca-90ef-515f96b33d95.png" alt="Scripting Lava">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo-pill">
+            <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/1784702e-19b5-4172-acfd-b44089d996ed.png" alt="Ruangguru Roblox Logo">
+          </div>
+        </div>
+        <div class="code-pill">Slide 6</div>
+      </div>
+      <div class="content">
+        <div class="title-wrap">
+          <div class="hero-sub">Tantangan Logika: Math Question</div>
+        </div>
+        <div class="grid-3">
+          <div class="panel tech-card">
+            <h3>1. Setup UI Tembok</h3>
+            <p>Integrasikan 'SurfaceGui' dan 'TextLabel' pada Part tembok soal. Ini adalah cara Kreator berkomunikasi secara visual dengan Karakter di dalam game.</p>
+            <div class="pill-list"><span>SurfaceGui</span><span>TextLabel</span><span>UI Setup</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/f881ad3c-4418-4f5f-ad83-77fc5db56e41.png" alt="Setup SurfaceGui">
+            </div>
+          </div>
+          <div class="panel tech-card">
+            <h3>2. Personalisasi Teks</h3>
+            <p>Ubah properti teks untuk memasukkan soal matematika. Kreator dapat menyesuaikan ukuran dan gaya huruf agar sesuai dengan tema game.</p>
+            <div class="pill-list"><span>Text Property</span><span>Font Style</span><span>Scaled Text</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/7c5d4240-251b-4e85-b27e-24ce86dc257c.png" alt="Editing TextLabel">
+            </div>
+          </div>
+          <div class="panel tech-card">
+            <h3>3. Optimalisasi Posisi</h3>
+            <p>Atur tata letak UI agar berada di posisi yang strategis. Pastikan teks pertanyaan dapat dibaca dengan jelas oleh Karakter dari berbagai sudut pandang.</p>
+            <div class="pill-list"><span>Alignment</span><span>Z-Offset</span><span>Visibility</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/a95906f9-9670-4b52-b31d-6ed771bd2d4c.png" alt="UI Positioning">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo-pill">
+            <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/1784702e-19b5-4172-acfd-b44089d996ed.png" alt="Ruangguru Roblox Logo">
+          </div>
+        </div>
+        <div class="code-pill">Slide 7</div>
+      </div>
+      <div class="content">
+        <div class="title-wrap">
+          <div class="hero-sub">Rintangan Ketiga: Gerbang Keputusan</div>
+        </div>
+        <div class="grid-3">
+          <div class="panel tech-card">
+            <h3>1. Konstruksi Pintu</h3>
+            <p>Ciptakan dua Part sebagai jalur pilihan bagi Karakter. Desain pintu ini akan menjadi ujian akhir bagi kemampuan logika matematika Karakter.</p>
+            <div class="pill-list"><span>Left/Right Door</span><span>Structure</span><span>Path Design</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/a95906f9-9670-4b52-b31d-6ed771bd2d4c.png" alt="Door Setup">
+            </div>
+          </div>
+          <div class="panel tech-card">
+            <h3>2. Integrasi Label Jawaban</h3>
+            <p>Pasang UI pada masing-masing pintu untuk menampilkan pilihan jawaban. Kreator harus memastikan teks terlihat jelas sebagai panduan Karakter.</p>
+            <div class="pill-list"><span>Answer Label</span><span>UI Mirroring</span><span>Clarity</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/c472b407-a19f-4b3a-875f-359a2e7af82c.png" alt="Door Text Setup">
+            </div>
+          </div>
+          <div class="panel tech-card">
+            <h3>3. Scripting Gerbang</h3>
+            <p>Terapkan logika 'CanCollide' dan 'Touched' secara spesifik pada masing-masing pintu untuk menentukan jalur mana yang dapat dilalui dengan aman.</p>
+            <div class="pill-list"><span>Correct Path</span><span>Trap Door</span><span>Logika Gerbang</span></div>
+            <div class="step-img-container tech-style">
+              <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/b9ff03de-d6b3-4c74-a573-6b98fbe5cbce.png" alt="Door Scripting">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo-pill">
+            <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/1784702e-19b5-4172-acfd-b44089d996ed.png" alt="Ruangguru Roblox Logo">
+          </div>
+        </div>
+        <div class="code-pill">Slide 8</div>
+      </div>
+      <div class="content">
+        <div class="title-wrap">
+          <div class="hero-sub">Final Review & Pengembangan Lanjutan</div>
+        </div>
+        <div class="grid-2" style="align-items: start; gap: 24px;">
+          <!-- Left Column: Quality Control -->
+          <div class="panel tech-card" style="height: 100%;">
+            <h3 style="margin-bottom: 20px;">Quality Control: Cek Sebelum Run! 🚀</h3>
+            <div class="checklist">
+              <div class="check-item" style="padding: 12px; border-radius: 12px;">
+                <div class="check-box" style="width: 22px; height: 22px;"></div>
+                <div><b>⚓ Verifikasi Anchor</b><span style="font-size: 13px;">Pastikan semua objek di-Anchor agar tidak jatuh.</span></div>
+              </div>
+              <div class="check-item" style="padding: 12px; border-radius: 12px;">
+                <div class="check-box" style="width: 22px; height: 22px;"></div>
+                <div><b>🏷️ Validasi Nama</b><span style="font-size: 13px;">Periksa penamaan Part sesuai referensi Script.</span></div>
+              </div>
+              <div class="check-item" style="padding: 12px; border-radius: 12px;">
+                <div class="check-box" style="width: 22px; height: 22px;"></div>
+                <div><b>🚪 Cek CanCollide</b><span style="font-size: 13px;">Pintu benar harus CanCollide = false.</span></div>
+              </div>
+              <div class="check-item" style="padding: 12px; border-radius: 12px;">
+                <div class="check-box" style="width: 22px; height: 22px;"></div>
+                <div><b>📍 Testing Spawn</b><span style="font-size: 13px;">Pastikan lokasi Spawn aman dan terbuka.</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Ide Kreatif -->
+          <div class="panel tech-card" style="height: 100%;">
+            <h3 style="margin-bottom: 20px;">Pengembangan & Ide Kreatif 💡</h3>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid rgba(0,242,255,0.1);">
+                <h4 style="color: var(--cyan); margin-bottom: 8px;">🚀 Tingkatkan Kesulitan</h4>
+                <p style="font-size: 14px; color: rgba(255,255,255,0.8);">Tambahkan rintangan bergerak atau teka-teki matematika yang lebih kompleks untuk menguji pemain.</p>
+                <div class="pill-list" style="margin-top: 10px;"><span>Moving</span><span>Timer</span></div>
+              </div>
+              <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid rgba(0,242,255,0.1);">
+                <h4 style="color: var(--cyan); margin-bottom: 8px;">🎨 Estetika Lingkungan</h4>
+                <p style="font-size: 14px; color: rgba(255,255,255,0.8);">Tambahkan efek partikel, pencahayaan dramatis, dan dekorasi agar dunia kuis terasa hidup.</p>
+                <div class="pill-list" style="margin-top: 10px;"><span>Particles</span><span>Lighting</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-nav">
+      <div class="dots" id="dots"></div>
+      <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn">← Sebelumnya</button>
+        <button class="nav-btn primary" id="nextBtn">Berikutnya →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    const dotsWrap = document.getElementById('dots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let current = 0;
+
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Ke slide ' + (i + 1));
+      d.style.border = 'none';
+      d.style.cursor = 'pointer';
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    });
+
+    function updateSlides() {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === current);
+        if (i !== current) s.scrollTop = 0;
+      });
+
+      slides[current].scrollTop = 0;
+
+      [...dotsWrap.children].forEach((d, i) => d.classList.toggle('active', i === current));
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+      prevBtn.style.opacity = current === 0 ? .5 : 1;
+      nextBtn.style.opacity = current === slides.length - 1 ? .5 : 1;
+    }
+
+    function goTo(i) {
+      current = Math.max(0, Math.min(slides.length - 1, i)); updateSlides();
+    }
+
+    function next() {
+      goTo(current + 1);
+
+    }
+
+    function prev() {
+      goTo(current - 1);
+
+    }
+
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') next();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prev();
+    });
+
+    // checklist interaction
+    document.querySelectorAll('.check-item').forEach(item => {
+      item.addEventListener('click', () => item.classList.toggle('done'));
+    });
+
+    updateSlides();
+  </script>
+</body>
+
+</html>
