@@ -290,6 +290,49 @@
       margin-top: 24px
     }
 
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+      padding: 16px 28px;
+      background: linear-gradient(135deg, #007bff 0%, #00f2ff 100%);
+      color: #fff;
+      font-weight: 900;
+      font-size: 18px;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 24px rgba(0, 242, 255, 0.4), 0 8px 20px rgba(0, 123, 255, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 36px rgba(0, 242, 255, 0.6), 0 12px 28px rgba(0, 123, 255, 0.45);
+    }
+
+    .download-btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .download-btn svg {
+      flex-shrink: 0;
+    }
+
     .stat {
       padding: 20px;
       background: rgba(255, 255, 255, 0.05);
@@ -1342,7 +1385,7 @@
           <div class="hero-sub">Roblox Studio Masterclass</div>
 
           <p class="lead">
-            Selamat datang di modul pengembangan game profesional. Karakter harus melewati rintangan obby terlebih dahulu sebelum menghadapi tantangan pertanyaan matematika dasar (penjumlahan, pengurangan, perkalian, pembagian). Karakter harus memilih jawaban yang tepat di jalur kiri atau kanan. Jika benar, karakter dapat melanjutkan perjalanan, namun jika salah, karakter akan reset dan kembali ke titik awal.
+            Selamat datang di modul pengembangan Roblox profesional. Karakter harus melewati rintangan obby terlebih dahulu sebelum menghadapi tantangan pertanyaan matematika dasar (penjumlahan, pengurangan, perkalian, pembagian). Karakter harus memilih jawaban yang tepat di jalur kiri atau kanan. Jika benar, karakter dapat melanjutkan perjalanan, namun jika salah, karakter akan reset dan kembali ke titik awal.
           </p>
 
           <div class="big-stat-grid">
@@ -1366,6 +1409,25 @@
               <span>Build, Code, & Test!</span>
             </div>
           </div>
+
+          <p style="margin-top: 18px; font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 600; letter-spacing: 0.3px;">
+            📥 Download Starter Project:
+            <a href="https://bit.ly/roblox-visit" target="_blank" rel="noopener noreferrer" style="
+              display: inline-block;
+              color: #00f2ff;
+              font-weight: 900;
+              font-size: 26px;
+              text-decoration: none;
+              letter-spacing: 1.5px;
+              text-shadow:
+                0 0 8px rgba(0,242,255,0.9),
+                0 0 20px rgba(0,242,255,0.6),
+                0 0 40px rgba(0,242,255,0.35);
+              border-bottom: 2px solid rgba(0,242,255,0.5);
+              line-height: 1.3;
+              vertical-align: middle;
+            ">bit.ly/roblox-visit</a>
+          </p>
         </div>
 
         <div class="visual card" style="padding: 0; display: flex; flex-direction: column; overflow: hidden; min-height: 520px; background: radial-gradient(circle at center, #001f3f 0%, #00040a 100%); border: 2px solid rgba(0, 242, 255, 0.3); box-shadow: inset 0 0 100px rgba(0, 242, 255, 0.1);">
@@ -1396,7 +1458,7 @@
         <div class="grid-3">
           <div class="panel tech-card">
             <h3>1. Konstruksi Objek</h3>
-            <p>Sebagai Kreator, Anda akan menyusun berbagai Part untuk membangun rintangan dan mempelajari pengorganisasian objek di dalam Explorer agar struktur proyek tetap rapi.</p>
+            <p>Sebagai Kreator, Kita akan menyusun berbagai Part untuk membangun rintangan dan mempelajari pengorganisasian objek di dalam Explorer agar struktur proyek tetap rapi.</p>
             <div class="pill-list"><span>Part</span><span>Anchor</span><span>PartColor</span></div>
             <div class="step-img-container tech-style">
               <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/5e648cd3-31bf-42ee-9c5a-69298272fc85.png" alt="Konstruksi Objek">
@@ -1412,7 +1474,7 @@
           </div>
           <div class="panel tech-card">
             <h3>3. Implementasi Logika</h3>
-            <p>Kreator akan menerapkan logika pemrograman untuk menentukan alur permainan. Jawaban yang benar memungkinkan karakter melintas, sementara kesalahan akan memicu reset posisi.</p>
+            <p>Kreator akan menerapkan logika pemrograman untuk menentukan alur kreasi. Jawaban yang benar memungkinkan karakter melintas, sementara kesalahan akan memicu reset posisi.</p>
             <div class="pill-list"><span>Scripting</span><span>CanCollide</span><span>Touched</span></div>
             <div class="step-img-container tech-style">
               <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/20e6bcab-8220-4420-affb-d051416badfa.png" alt="Implementasi Logika">
@@ -1438,7 +1500,7 @@
         <div class="grid-3">
           <div class="panel tech-card">
             <h3>1. Akses Roblox Studio</h3>
-            <p>Luncurkan aplikasi Roblox Studio dan pastikan Anda telah masuk dengan akun Kreator. Tahap ini adalah langkah pertama untuk memasuki lingkungan pengembangan game.</p>
+            <p>Luncurkan aplikasi Roblox Studio dan pastikan masuk dengan akun Kreator. Tahap ini adalah langkah pertama untuk memasuki lingkungan pengembangan kreasi.</p>
             <div class="pill-list"><span>Launch</span><span>Login</span><span>Studio</span></div>
             <div class="step-img-container tech-style">
               <img src="https://cdn.prod.website-files.com/63fda77e5fd49598bbf00892/6445198037f424e3d8b816d8_Studio-Banner.jpg" alt="Roblox Studio Login">
@@ -1454,7 +1516,7 @@
           </div>
           <div class="panel tech-card">
             <h3>3. Konfigurasi Spawn</h3>
-            <p>Tambahkan 'SpawnLocation' melalui tab Model. Titik ini sangat penting sebagai lokasi kemunculan pertama bagi Karakter saat permainan dimulai.</p>
+            <p>Tambahkan 'SpawnLocation' melalui tab Model. Titik ini sangat penting sebagai lokasi kemunculan pertama bagi Karakter saat kreasi dimulai.</p>
             <div class="pill-list"><span>SpawnLocation</span><span>Model Tab</span><span>Start Point</span></div>
             <div class="step-img-container tech-style">
               <img src="https://prod.docsiteassets.roblox.com/assets/tutorials/gameplay-scripting/Spawn-Respawn/Neutral.jpg" alt="SpawnLocation Setup">
@@ -1548,7 +1610,7 @@
         <div class="grid-3">
           <div class="panel tech-card">
             <h3>1. Setup UI Tembok</h3>
-            <p>Integrasikan 'SurfaceGui' dan 'TextLabel' pada Part tembok soal. Ini adalah cara Kreator berkomunikasi secara visual dengan Karakter di dalam game.</p>
+            <p>Integrasikan 'SurfaceGui' dan 'TextLabel' pada Part tembok soal. Ini adalah cara Kreator berkomunikasi secara visual dengan Karakter di dalam kreasi.</p>
             <div class="pill-list"><span>SurfaceGui</span><span>TextLabel</span><span>UI Setup</span></div>
             <div class="step-img-container tech-style">
               <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/f881ad3c-4418-4f5f-ad83-77fc5db56e41.png" alt="Setup SurfaceGui">
@@ -1556,7 +1618,7 @@
           </div>
           <div class="panel tech-card">
             <h3>2. Personalisasi Teks</h3>
-            <p>Ubah properti teks untuk memasukkan soal matematika. Kreator dapat menyesuaikan ukuran dan gaya huruf agar sesuai dengan tema game.</p>
+            <p>Ubah properti teks untuk memasukkan soal matematika. Kreator dapat menyesuaikan ukuran dan gaya huruf agar sesuai dengan tema kreasi.</p>
             <div class="pill-list"><span>Text Property</span><span>Font Style</span><span>Scaled Text</span></div>
             <div class="step-img-container tech-style">
               <img src="https://uob-1328237036.cos.ap-singapore.myqcloud.com//file-uploader/images/7c5d4240-251b-4e85-b27e-24ce86dc257c.png" alt="Editing TextLabel">
